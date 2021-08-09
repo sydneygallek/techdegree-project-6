@@ -1,27 +1,39 @@
 //Global variables
-
-let qwerty = document.getElementById('qwerty');
-let phrase = document.getElementById('phrase');
-let startButton = document.getElementsByClassName('btn__reset');
-
-//Creates phrases array
-let phrases = ['never give up', 'it will be ok', 'coding is hard', 'coding is stupid', 'boss bitches only'];
-
-//tracking variables
+const qwerty = document.getElementById('qwerty');
+const phrase = document.getElementById('phrase');
+const startButton = document.getElementsByClassName('btn__reset');
 let missedVar = 0;
 
+//Creates phrases array
+const phrases = [
+ 'never give up',
+ 'it will be ok',
+ 'coding is hard',
+ 'coding is stupid',
+ 'boss bitches only'];
+
+//listens for start game button to be clicked
+startButton.addEventListener('click', () => {
+    overlay.style.display = 'none;'
+});
 
 
-//function to pull a random number based on array length
+//declares function and its parameters
+//get a random phrase as its own array
 const getRandomPhraseAsArray = arr => {
     //choose random number for phrase
-    const randomNumber = Math.floor(Math.random() * (phrases.length));
-    const randomPhrase = phrases[randomNumber];
+    const randomNumber = Math.floor(Math.random() * (arr.length));
+    //use variable to select index inside of the array
+    const randomPhrase = phrases[randomNumber].split(' ');
+    //call the function and pass phrases to it
 
+    //return the random phase from the randomNumber index as an array of itself with each word at a different index
     return randomPhrase;
 }
+//calls the function above to return the target phrase
+getRandomPhraseAsArray(phrases); 
 
-//
+
 const addPhraseToDisplay = arr => {
     //loop through array of characters
     for (let i = 0; i < arr.length; i++) {
@@ -31,13 +43,19 @@ const addPhraseToDisplay = arr => {
         li.textConent = arr[i];
         //append the list item to #phrase ul
         phrase.append(li);
+        //adds class to list items of either space or letter
+        if (arr[i] == ' ') {
+            li.className += "space";
+        } else {
+            li.className += "letter";
+        }
     }
     
 }
 
 
 //function to check for matches between code and userinput
-const checkLetter = letter => {
+const checkLetter = (letter) => {
 //get all elements for letter class
 const letters = document.querySelectorAll('.letter');
 const matchingLetter = null;
@@ -55,28 +73,30 @@ const matchCounter = 0;
     }
 }
 
+
+
 const checkWin = () => {
+//create a variable to store the li elements with class name letter and show
+const letter = document.getElementsByClassName('letter');
+const show = document.getElementByClassName('show');
+//check if length of two variables is the same
+if (letter.length === show.length); {
+    //if they are create the win overlay by adding the win class to start overlay
+    document.getElementById('#overlay').className = "win"; 
+    overlay.style.display = 'flex;'
 
 }
-
-startButton.addEventListener('click', () => {
-    //filter out clicks that don't happen or button has already chosen the class
-    if (startButton.textContent === 'Start Game') {
-        startGame();
-        overlay.style.display = 'none';
-    } else {
-        resetGame();
-        startGame();
-        overlay.style.display = 'none';
-    }
-
-  
 }
-);
 
+
+
+// listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', e => {
-
-}).display('none');
+    if (e.target.tagName ==="BUTTON") {
+        let button, letterFound = '',
+        tries = document.querySelectorAll('.tries');
+    }
+});
 
 
 
