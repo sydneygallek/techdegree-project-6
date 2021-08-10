@@ -1,7 +1,8 @@
 //Global variables
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
-const startButton = document.getElementsByClassName('btn__reset');
+const startButton = document.querySelector('.btn__reset');
+const phraseUL = phrase.querySelector('ul');
 let missedVar = 0;
 
 //Creates phrases array
@@ -13,8 +14,8 @@ const phrases = [
  'boss bitches only'];
 
 //listens for start game button to be clicked
-startButton.addEventListener('click', () => {
-    overlay.style.display = 'none;'
+startButton.addEventListener('click', (event) => {
+    overlay.style.display = 'none';
 });
 
 
@@ -31,8 +32,8 @@ const getRandomPhraseAsArray = arr => {
     return randomPhrase;
 }
 //calls the function above to return the target phrase
-getRandomPhraseAsArray(phrases); 
 
+getRandomPhraseAsArray(phrases); 
 
 const addPhraseToDisplay = arr => {
     //loop through array of characters
@@ -40,37 +41,38 @@ const addPhraseToDisplay = arr => {
         //create a list item
         const li = document.createElement('li');
         //put the character inside the list item
-        li.textConent = arr[i];
+        li.textContent = arr[i];
         //append the list item to #phrase ul
-        phrase.append(li);
+        phraseUL.append(li);
         //adds class to list items of either space or letter
         if (arr[i] == ' ') {
-            li.className += "space";
+            const letterItem = arr[i].className += 'letter'
         } else {
-            li.className += "letter";
+            const spaceItem = arr[i].className += 'space';
         }
+
     }
     
 }
+let newInput = getRandomPhraseAsArray(phrases); 
 
 
 //function to check for matches between code and userinput
 const checkLetter = (letter) => {
-//get all elements for letter class
-const letters = document.querySelectorAll('.letter');
+
 const matchingLetter = null;
-const matchCounter = 0;
 
     for (let i = 0; i < arr.length; i++) {
         //matched
         if (letter === letters[i].textContext) {
             //add show class to li
-            letters[i].className += ' show';
+            letters[i].className.add('show');
             //store matching letter inside a variable
-            matchingLetter = letter;
-            matchCounter++;
+            matchingLetter = true;
+          
         }
     }
+    return matchingLetter;
 }
 
 
@@ -91,11 +93,15 @@ if (letter.length === show.length); {
 
 
 // listen for the onscreen keyboard to be clicked
-qwerty.addEventListener('click', e => {
-    if (e.target.tagName ==="BUTTON") {
-        let button, letterFound = '',
-        tries = document.querySelectorAll('.tries');
+qwerty.addEventListener('click', (event) => {
+    if (event.target.tagName === 'button') {
+        document.getElementsByClassName('button').className.add('chosen');
+        checkLetter('button');
+    } else if (event.target.tagName === null) {
+        let removable = document.getElementClassName('.tries');
+        missedVar+=1;
     }
+    checkWin();
 });
 
 
