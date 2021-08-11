@@ -59,30 +59,27 @@ addPhraseToDisplay(newInput);
 //function to check for matches between code and userinput
 //used inside of the event listener
 const checkLetter = (button) => {
-let buttonContent = button.textContent;
-let buttonFalse = null;
+let buttonContent = document.getElementsByTagName('button').textContent;
+let buttonFalse;
 let letterClass = document.getElementsByClassName('letter');
 //loop through the letter class from last step
 for (let i = 0; i < letterClass.length; i++) {
-    //create a variable to store letter at i
-    let letterChecked = letters[i];
-    //variable for the text that is in the letter at i
-    let letterContent = letterChecked.textContent;
-    //conditional goes here
-    if (letterContent === button.textContent) {
-        letterClass.className = 'show';
-    } else {
-        let buttonFalse = null;
-    }
+  if (buttonContent === letterClass[i].textContent) {
+    let matched = letterClass[i].textContent.classList.add = 'show';
+} else {
+    return buttonFalse;
+}
+
 }
 return letterClass;
 };
 
-const checkWin = () => {
-
-};
 
 // listen for the onscreen keyboard to be clicked
 qwerty.addEventListener('click', (event) => {
-
+  
 });
+
+const checkWin = () => {
+
+};
