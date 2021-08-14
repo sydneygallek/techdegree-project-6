@@ -2,7 +2,7 @@
 const qwerty = document.getElementById('qwerty');
 const phrase = document.getElementById('phrase');
 const startButton = document.querySelector('.btn__reset');
-
+let hearts = document.querySelectorAll('.tries');
 let missedVar = 0;
 
 //Creates phrases array
@@ -56,30 +56,61 @@ const addPhraseToDisplay = arr => {
 let newInput = getRandomPhraseAsArray(phrases);
 addPhraseToDisplay(newInput);
 
-//function to check for matches between code and userinput
+//function to check for matches between code and user input
 //used inside of the event listener
 const checkLetter = (button) => {
-let buttonContent = document.getElementsByTagName('button').textContent;
-let buttonFalse;
+let buttonContent = button.textContent;
+let match = null;
 let letterClass = document.getElementsByClassName('letter');
 //loop through the letter class from last step
 for (let i = 0; i < letterClass.length; i++) {
   if (buttonContent === letterClass[i].textContent) {
-    let matched = letterClass[i].textContent.classList.add = 'show';
-} else {
-    return buttonFalse;
+      match = button;
+      letterClass[i].classList.add('show');
+      }
+  }
+  return match;
 }
 
-}
-return letterClass;
-};
-
-
-// listen for the onscreen keyboard to be clicked
-qwerty.addEventListener('click', (event) => {
+//add event listener to user keyboard
+//if the button text is equal to one of the letters add show class
+//calls checkLetter to compare the variables
+//remove heart else 
+//finally calls check win function after 5 missed OR all letters are found
+qwerty.addEventListener("click",(e)=>{
+  if (e.target.tagName== "BUTTON"){
+    const button = e.target;
+    checkLetter(button);
+    if(checkLetter(button) == null){
+      missedVar+= 1;
+      const heartimage= hearts[missedVar-1].querySelectorAll("img")[0];
+      heartimage.src="images/lostHeart.png";
+    }
+    button.disabled=true;
+  }
+  checkWin();
+  });
   
-});
 
-const checkWin = () => {
+  //check win by comparing the letter class to the show class
+  //if they are equal you win
+  //if they missed 5 then the game is over display you lose
+  function checkWin(){
+  let title = document.querySelectorAll(".title")[0];
+  var letterCount = document.querySelectorAll(".letter");
+  var showCount = document.querySelectorAll(".show");
+  letterCount = letterCount.length;
+  showCount = showCount.length;
+      if(letterCount == showCount){
+    overlay.style.display ="";
+    overlay.className="win";
+        title.textContent="You win!"
 
-};
+  }
+      if(missedVar>= 5) {
+    overlay.style.display ="";
+    overlay.className="lose";
+     title.textContent = "You lose!";
+
+    }
+  }
